@@ -1,0 +1,16 @@
+/home/ziga/Documents/Projects/RabbitCoin/obj/Debug/net5.0/RabbitCoin.csprojAssemblyReference.cache
+/home/ziga/Documents/Projects/RabbitCoin/obj/Debug/net5.0/RabbitCoin.GeneratedMSBuildEditorConfig.editorconfig
+/home/ziga/Documents/Projects/RabbitCoin/obj/Debug/net5.0/RabbitCoin.AssemblyInfoInputs.cache
+/home/ziga/Documents/Projects/RabbitCoin/obj/Debug/net5.0/RabbitCoin.AssemblyInfo.cs
+/home/ziga/Documents/Projects/RabbitCoin/obj/Debug/net5.0/RabbitCoin.csproj.CoreCompileInputs.cache
+/home/ziga/Documents/Projects/RabbitCoin/bin/Debug/net5.0/RabbitCoin
+/home/ziga/Documents/Projects/RabbitCoin/bin/Debug/net5.0/RabbitCoin.deps.json
+/home/ziga/Documents/Projects/RabbitCoin/bin/Debug/net5.0/RabbitCoin.runtimeconfig.json
+/home/ziga/Documents/Projects/RabbitCoin/bin/Debug/net5.0/RabbitCoin.runtimeconfig.dev.json
+/home/ziga/Documents/Projects/RabbitCoin/bin/Debug/net5.0/RabbitCoin.dll
+/home/ziga/Documents/Projects/RabbitCoin/bin/Debug/net5.0/ref/RabbitCoin.dll
+/home/ziga/Documents/Projects/RabbitCoin/bin/Debug/net5.0/RabbitCoin.pdb
+/home/ziga/Documents/Projects/RabbitCoin/obj/Debug/net5.0/RabbitCoin.dll
+/home/ziga/Documents/Projects/RabbitCoin/obj/Debug/net5.0/ref/RabbitCoin.dll
+/home/ziga/Documents/Projects/RabbitCoin/obj/Debug/net5.0/RabbitCoin.pdb
+/home/ziga/Documents/Projects/RabbitCoin/obj/Debug/net5.0/RabbitCoin.genruntimeconfig.cache
