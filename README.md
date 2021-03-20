@@ -1,4 +1,4 @@
-# RabbitCoins
+# RabbitCoin
 Simple block-chain system made in C#
 
 <img src="https://i.imgur.com/BU3Fla4.png" />
