@@ -13,6 +13,7 @@ namespace RabbitCoin
         static void Main(string[] args)
         {
             rabbitCoin = new BlockChain();
+            importBlockChain(false);
 
             while(true){
                 showOptions();
@@ -37,12 +38,13 @@ namespace RabbitCoin
                         giveRC();
                     break;
                     case 's':
-                        saveBlockChain();
+                        saveBlockChain(true);
                     break;
                     case 'i':
-                        importBlockChain();
+                        importBlockChain(true);
                     break;
                     case 'q':
+                        saveBlockChain(false);
                         Environment.Exit(0);
                     break;
                 }
@@ -73,12 +75,15 @@ namespace RabbitCoin
             }
         }
 
-        static void saveBlockChain(){
+        static void saveBlockChain(bool specific_location){
             page = 3;
-            showOptions();
             Directory.CreateDirectory("BlockChain");
-            Console.Write("\nProvide name of the file (without extension): ");
-            String file_name = Console.ReadLine();
+            String file_name = "BlockChain";
+            if(specific_location){
+                showOptions();
+                Console.Write("\nProvide name of the file (without extension): ");
+                file_name = Console.ReadLine();
+            }
             String blockchain = "";
             foreach(Block block in rabbitCoin.chain){
                 blockchain += block.timestamp + ";";
@@ -94,16 +99,21 @@ namespace RabbitCoin
                 blockchain += "\n";
             }
             File.WriteAllText("BlockChain/" + file_name + ".txt", blockchain);
-            Console.WriteLine("BlockChain is saved to " + Directory.GetCurrentDirectory() + "/BlockChain/" + file_name + ".txt");
-            Console.ReadKey();
+            if(specific_location){
+                Console.WriteLine("BlockChain is saved to " + Directory.GetCurrentDirectory() + "/BlockChain/" + file_name + ".txt");
+                Console.ReadKey();
+            }
             page = 0;
         }
 
-        static void importBlockChain(){
+        static void importBlockChain(bool specific_location){
             page = 3;
-            showOptions();
-            Console.Write("\nProvide name of the file (without extension): ");
-            String file_name = Console.ReadLine();
+            String file_name = "BlockChain";
+            if(specific_location){
+                showOptions();
+                Console.Write("\nProvide name of the file (without extension): ");
+                file_name = Console.ReadLine();
+            }
             if(File.Exists("BlockChain/" + file_name + ".txt")){
                 String blockchain = File.ReadAllText("BlockChain/" + file_name + ".txt");
                 String[] blocks = blockchain.Split('\n');
@@ -125,9 +135,10 @@ namespace RabbitCoin
                     rabbitCoin.chain[i] = block;
                 }
             }else{
-                Console.WriteLine("BlockChain in " + Directory.GetCurrentDirectory() + "/BlockChain/" + file_name + ".txt does not exists!");
+                if(specific_location)
+                    Console.WriteLine("BlockChain in " + Directory.GetCurrentDirectory() + "/BlockChain/" + file_name + ".txt does not exists!");
             }
-            Console.ReadKey();
+            if(specific_location) Console.ReadKey();
             page = 0;
         }
 
