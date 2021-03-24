@@ -55,6 +55,10 @@ namespace RabbitCoin
                 Console.WriteLine("Can't add invalid transaction to a blockchain!");
                 return;
             }
+            if(transaction.amount <= 0){
+                Console.WriteLine("You need to send at least few Rabbit Coinse!");
+                return;
+            }
             if(getBalanceOfAddress(transaction.fromAddress) < transaction.amount){
                 Console.WriteLine("You don't have enough Rabbit Coins to make this transaction!");
                 return;
