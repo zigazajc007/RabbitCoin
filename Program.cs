@@ -143,6 +143,7 @@ namespace RabbitCoin
         }
 
         static void createTransaction(){
+            page = 3;
             showOptions();
             Console.Write("\nPlease enter your address: ");
             String fromAddress = Console.ReadLine();
@@ -159,6 +160,7 @@ namespace RabbitCoin
             }
             rabbitCoin.addTransaction(new Transaction(fromAddress, toAddress, amount, privateKey));
             Console.ReadKey();
+            page = 0;
         }
 
         static void giveRC(){
