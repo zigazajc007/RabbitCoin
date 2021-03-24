@@ -170,7 +170,7 @@ namespace RabbitCoin
             String toAddress = Console.ReadLine();
             Console.Write("Please enter amount of Rabbit Coins: ");
             decimal amount = 0;
-            while(amount == 0){
+            while(amount <= 0){
                 try{
                     amount = Convert.ToDecimal(Console.ReadLine());
                 }catch{
