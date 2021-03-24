@@ -150,14 +150,12 @@ namespace RabbitCoin
             String privateKey = Console.ReadLine();
             Console.Write("Please enter payee address: ");
             String toAddress = Console.ReadLine();
-            Console.Write("Please enter amount of Rabbit Coins: ");
             decimal amount = 0;
             while(amount <= 0){
+                Console.Write("Please enter amount of Rabbit Coins: ");
                 try{
                     amount = Convert.ToDecimal(Console.ReadLine());
-                }catch{
-                    Console.Write("Please enter amount of Rabbit Coins: ");
-                }
+                }catch{}
             }
             rabbitCoin.addTransaction(new Transaction(fromAddress, toAddress, amount, privateKey));
             Console.ReadKey();
@@ -168,14 +166,12 @@ namespace RabbitCoin
             showOptions();
             Console.Write("\nPlease enter your address: ");
             String toAddress = Console.ReadLine();
-            Console.Write("Please enter amount of Rabbit Coins: ");
             decimal amount = 0;
             while(amount <= 0){
+                    Console.Write("Please enter amount of Rabbit Coins: ");
                 try{
                     amount = Convert.ToDecimal(Console.ReadLine());
-                }catch{
-                    Console.Write("Please enter amount of Rabbit Coins: ");
-                }
+                }catch{}
             }
             rabbitCoin.addTransaction(new Transaction("6871bf25e4a062d9db9e26bc625ee671f3ee12457a07441a13c7381ab5866747", toAddress, amount, "hVT1/FUDlU8WOvM0bGreF+c4QNlRH7QMgakRYJSK7Kd+T/gIBr/bVwE1t+Ri8zQqeS0foqunrZaMX8XcquCiJQ=="));
             Console.ReadKey();
