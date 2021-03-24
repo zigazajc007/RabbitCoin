@@ -12,12 +12,7 @@ namespace RabbitCoin
 
         public BlockChain()
         {
-            chain[0] = createGenesisBlock();
-        }
-
-        public Block createGenesisBlock()
-        {
-            return new Block(new Transaction[]{new Transaction(null, "6871bf25e4a062d9db9e26bc625ee671f3ee12457a07441a13c7381ab5866747", 1000000000, "hVT1/FUDlU8WOvM0bGreF+c4QNlRH7QMgakRYJSK7Kd+T/gIBr/bVwE1t+Ri8zQqeS0foqunrZaMX8XcquCiJQ==")}, "0");
+            chain[0] = new Block(new Transaction[]{new Transaction(null, "6871bf25e4a062d9db9e26bc625ee671f3ee12457a07441a13c7381ab5866747", 1000000000, "hVT1/FUDlU8WOvM0bGreF+c4QNlRH7QMgakRYJSK7Kd+T/gIBr/bVwE1t+Ri8zQqeS0foqunrZaMX8XcquCiJQ==")}, "0");
         }
 
         public Block getLatestBlock()
@@ -84,8 +79,7 @@ namespace RabbitCoin
                 Block currentBlock = chain[i];
                 Block previousBlock = chain[i-1];
 
-                if(!currentBlock.hasValidTransaction()) return false;
-                if(currentBlock.hash != currentBlock.calculateHash()) return false;
+                if(!currentBlock.hasValidTransactions()) return false;
                 if(currentBlock.previousHash != previousBlock.hash) return false;
             }
             return true;

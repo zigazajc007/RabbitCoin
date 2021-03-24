@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
 
 namespace RabbitCoin
 {
@@ -36,6 +35,9 @@ namespace RabbitCoin
                     break;
                     case 'g':
                         giveRC();
+                    break;
+                    case 'v':
+                        validateBlockChain();
                     break;
                     case 's':
                         saveBlockChain(true);
@@ -83,6 +85,16 @@ namespace RabbitCoin
                 showOptions();
                 Console.Write("\nProvide name of the file (without extension): ");
                 file_name = Console.ReadLine();
+                if(file_name.Length >= 1){
+                    foreach(char c in file_name){
+                        if(!Char.IsLetterOrDigit(c)){
+                            file_name = "BlockChain";
+                            break;
+                        }
+                    }
+                }else{
+                    file_name = "BlockChain";
+                }
             }
             String blockchain = "";
             foreach(Block block in rabbitCoin.chain){
@@ -113,27 +125,36 @@ namespace RabbitCoin
                 showOptions();
                 Console.Write("\nProvide name of the file (without extension): ");
                 file_name = Console.ReadLine();
+                if(file_name.Length >= 1){
+                    foreach(char c in file_name){
+                        if(!Char.IsLetterOrDigit(c)){
+                            file_name = "BlockChain";
+                            break;
+                        }
+                    }
+                }else{
+                    file_name = "BlockChain";
+                }
             }
             if(File.Exists("BlockChain/" + file_name + ".txt")){
                 String blockchain = File.ReadAllText("BlockChain/" + file_name + ".txt");
                 String[] blocks = blockchain.Split('\n');
                 Array.Resize(ref rabbitCoin.chain, blocks.Length-1);
-                Block block = new Block(new Transaction[0]);
                 for(int i = 0; i < blocks.Length-1; i++){
+                    Block block = new Block(new Transaction[0]);
                     String[] data = blocks[i].Split(';');
                     Transaction[] transactions = new Transaction[(data.Length-4)/4];
                     block.timestamp = Convert.ToInt64(data[0]);
                     block.nonce = Convert.ToInt32(data[1]);
                     block.previousHash = data[2];
                     block.hash = data[3];
-                    int index = 0;
-                    for(int j = 4; j < data.Length-1; j += 4){
-                        transactions[index] = new Transaction(data[j], data[j+1], Convert.ToInt64(data[j+2]), data[j+3]);
-                        index++;
-                    }
+                    for(int j = 4, index = 0; j < data.Length-1; j += 4, index++)
+                        transactions[index] = new Transaction(data[j], data[j+1], Convert.ToInt64(data[j+2]), data[j+3], true);
                     block.transactions = transactions;
                     rabbitCoin.chain[i] = block;
                 }
+                if(specific_location)
+                    Console.WriteLine("BlockChain has been imported!");
             }else{
                 if(specific_location)
                     Console.WriteLine("BlockChain in " + Directory.GetCurrentDirectory() + "/BlockChain/" + file_name + ".txt does not exists!");
@@ -186,9 +207,13 @@ namespace RabbitCoin
             Console.Write("\nPlease enter your address (Mining rewards will be send to this address): ");
             String toAddress = Console.ReadLine();
             Console.WriteLine();
-            while(!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Q)){
-                rabbitCoin.minePendingTransactions(toAddress);
-                Thread.Sleep(500);
+            if(rabbitCoin.pendingTransactions.Length >= rabbitCoin.minPendingTransactions){
+                while(!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Q)){
+                    rabbitCoin.minePendingTransactions(toAddress);
+                }
+            }else{
+                Console.WriteLine("Pending transactions don't exists. You need to wait for new transactions to be added...");
+                Console.ReadKey();
             }
             page = 0;
         }
@@ -215,6 +240,19 @@ namespace RabbitCoin
                 Console.WriteLine("\n\tBalance of '" + address + "' address is " + rabbitCoin.getBalanceOfAddress(address) + " RC");
                 Console.ReadKey();
             }
+            page = 0;
+        }
+
+        static void validateBlockChain(){
+            page = 3;
+            showOptions();
+            Console.WriteLine("\n\tValidating BlockChain...");
+            if(rabbitCoin.isChainValid()){
+                Console.WriteLine("\tBlockChain is valid.");
+            }else{
+                Console.WriteLine("\tBlockChain is invalid! Please import valid BlockChain.");
+            }
+            Console.ReadKey();
             page = 0;
         }
 
@@ -250,6 +288,7 @@ namespace RabbitCoin
                     Console.WriteLine("\tg - Give RC (DEVELOPER)");
                     Console.WriteLine("\ts - Save BlockChain");
                     Console.WriteLine("\ti - Import BlockChain");
+                    Console.WriteLine("\tv - Validate BlockChain");
                     Console.WriteLine("\tq - Quit");
                     break;
             }

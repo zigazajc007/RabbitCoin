@@ -35,7 +35,7 @@ namespace RabbitCoin
             Console.WriteLine("Block mined: " + hash);
         }
 
-        public bool hasValidTransaction(){
+        public bool hasValidTransactions(){
             foreach(Transaction trans in transactions){
                 if(!trans.isValid()) return false;
             }

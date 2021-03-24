@@ -11,14 +11,19 @@ namespace RabbitCoin
 
         String privateKey;
 
-        public Transaction(String fromAddress, String toAddress, decimal amount, String privateKey)
+        public Transaction(String fromAddress, String toAddress, decimal amount, String privateKey, bool import = false)
         {
+            if(import){
+                if(fromAddress == "") fromAddress = null;
+                if(privateKey == "") privateKey = null;
+            }
+            
             this.fromAddress = fromAddress;
             this.toAddress = toAddress;
             this.amount = amount;
             this.privateKey = privateKey;
 
-            signTransaction();
+            if(!import) signTransaction();
         }
 
         public String calculateHash(){
