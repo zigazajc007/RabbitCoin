@@ -56,7 +56,7 @@ namespace RabbitCoin
                 return;
             }
             if(transaction.amount <= 0){
-                Console.WriteLine("You need to send at least few Rabbit Coinse!");
+                Console.WriteLine("You need to send at least few Rabbit Coins!");
                 return;
             }
             if(getBalanceOfAddress(transaction.fromAddress) < transaction.amount){
