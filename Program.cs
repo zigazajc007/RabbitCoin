@@ -70,8 +70,8 @@ namespace RabbitCoin
         static void saveWallet(String publicKey, String privateKey){
             Directory.CreateDirectory("Wallets");
             for(int i = 1; i < int.MaxValue; i++){
-                if(!File.Exists("Wallets/"+i+".txt")){
-                    File.WriteAllText("Wallets/"+i+".txt", "public key: " + publicKey + "\nprivate key: " + privateKey);
+                if(!File.Exists("Wallets"+ Path.DirectorySeparatorChar + i +".txt")){
+                    File.WriteAllText("Wallets" + Path.DirectorySeparatorChar + i +".txt", "public key: " + publicKey + "\nprivate key: " + privateKey);
                     break;
                 }
             }
@@ -110,9 +110,9 @@ namespace RabbitCoin
                 }
                 blockchain += "\n";
             }
-            File.WriteAllText("BlockChain/" + file_name + ".txt", blockchain);
+            File.WriteAllText("BlockChain" + Path.DirectorySeparatorChar + file_name + ".txt", blockchain);
             if(specific_location){
-                Console.WriteLine("BlockChain is saved to " + Directory.GetCurrentDirectory() + "/BlockChain/" + file_name + ".txt");
+                Console.WriteLine("BlockChain is saved to " + Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "BlockChain" + Path.DirectorySeparatorChar + file_name + ".txt");
                 Console.ReadKey();
             }
             page = 0;
@@ -136,8 +136,8 @@ namespace RabbitCoin
                     file_name = "BlockChain";
                 }
             }
-            if(File.Exists("BlockChain/" + file_name + ".txt")){
-                String blockchain = File.ReadAllText("BlockChain/" + file_name + ".txt");
+            if(File.Exists("BlockChain" + Path.DirectorySeparatorChar + file_name + ".txt")){
+                String blockchain = File.ReadAllText("BlockChain" + Path.DirectorySeparatorChar + file_name + ".txt");
                 String[] blocks = blockchain.Split('\n');
                 Array.Resize(ref rabbitCoin.chain, blocks.Length-1);
                 for(int i = 0; i < blocks.Length-1; i++){
@@ -157,7 +157,7 @@ namespace RabbitCoin
                     Console.WriteLine("BlockChain has been imported!");
             }else{
                 if(specific_location)
-                    Console.WriteLine("BlockChain in " + Directory.GetCurrentDirectory() + "/BlockChain/" + file_name + ".txt does not exists!");
+                    Console.WriteLine("BlockChain in " + Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + "BlockChain" + Path.DirectorySeparatorChar + file_name + ".txt does not exists!");
             }
             if(specific_location) Console.ReadKey();
             page = 0;
